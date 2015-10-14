@@ -1,0 +1,32 @@
+{
+  "name": "bnparser",
+  "version": "0.1.0",
+  "description": "A binary network parser",
+  "main": "lib/parser.js",
+  "scripts": {
+    "test": "node node_modules/gulp/bin/gulp.js && node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LittleHelicase/BNParser.git"
+  },
+  "keywords": [
+    "Network",
+    "parser"
+  ],
+  "author": "Maximilian Klein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LittleHelicase/BNParser/issues"
+  },
+  "homepage": "https://github.com/LittleHelicase/BNParser#readme",
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "mocha": "^2.3.3"
+  },
+  "dependencies": {
+    "ramda": "^0.18.0"
+  }
+}
