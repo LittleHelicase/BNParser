@@ -4,7 +4,8 @@
   "description": "A binary network parser",
   "main": "lib/parser.js",
   "scripts": {
-    "test": "node node_modules/standard/bin/cmd.js src/**/*.js && node node_modules/gulp/bin/gulp.js && node_modules/mocha/bin/mocha"
+    "prepublish": "node node_modules/gulp/bin/gulp.js",
+    "test": "node node_modules/standard/bin/cmd.js src/**/*.js && node_modules/mocha/bin/mocha --compilers js:babel/register"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/LittleHelicase/BNParser#readme",
   "devDependencies": {
+    "babel": "^5.8.23",
     "babel-eslint": "^4.1.3",
     "chai": "^3.3.0",
     "gulp": "^3.9.0",
