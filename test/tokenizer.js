@@ -9,7 +9,17 @@ describe('Basic Network parser', function () {
     expect(tokens.value).to.have.length(1)
   })
   it('Creates tokens for a definition', function () {
-    var def = tok('a = 10 -> 1')
-    expect(def.value[0].type).to.equal('definition')
+    var defs = tok('a = 10 -> 1')
+    expect(defs.status).to.be.true
+    var def = defs.value[0]
+    expect(def.type).to.equal('definition')
+    expect(def.name).to.equal('a')
+    expect(def.arity).to.deep.equal([10,1])
+  })
+  it('Creates tokens for terms', function(){
+    var terms = tok('a ++ b')
+    console.log(terms)
+    expect(terms.status).to.be.true
+    var term = terms.value[0]
   })
 })
