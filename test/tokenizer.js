@@ -10,16 +10,41 @@ describe('Basic Network parser', function () {
   })
   it('Creates tokens for a definition', function () {
     var defs = tok('a = 10 -> 1')
-    expect(defs.status).to.be.true
-    var def = defs.value[0]
-    expect(def.type).to.equal('definition')
-    expect(def.name).to.equal('a')
-    expect(def.arity).to.deep.equal([10,1])
+    expect(defs).to.deep.equal(['def', 'a', ['10', '1']])
   })
-  it('Creates tokens for terms', function(){
+  it('Creates tokens for terms', function () {
     var terms = tok('a ++ b')
-    console.log(terms)
-    expect(terms.status).to.be.true
-    var term = terms.value[0]
+    expect(terms).to.deep.equal(['parallel', 'a', 'b'])
+  })
+  it('Cannot parse an uncomplete operation', function () {
+    var uncomp = tok('a ++ ')
+    expect(uncomp.message).to.be.a('string')
+  })
+
+  it('Parses terms with parenthesis', function () {
+    var pterms = tok('(a ++ b)')
+    expect(pterms).to.deep.equal(['parallel', 'a', 'b'])
+  })
+
+  it('Parses terms with multiple parenthesis', function () {
+    var pterms = tok('((a ++ (b ° d)) ++ c)')
+    expect(pterms).to.deel.equal(['parallel', ['parallel', 'a', ['sequential', 'b', 'd']], 'c'])
+  })
+
+  it('Supports loops as postifixes', function () {
+    var lterm = tok('a^')
+    expect(lterm).to.deep.equal(['loop', 'a'])
+  })
+  it('Handles parenthesis correctly with loops', function () {
+    var lterm = tok('(a ++ b)^')
+    expect(lterm).to.deep.equal(['loop', ['parallel', 'a', 'b']])
+  })
+  it('Parses ramifications correctly', function () {
+    var rterm = tok('a°<°b')
+    expect(rterm).to.deep.equal(['sequential', 'a', '<', 'b'])
+  })
+  it('Parses identifications correctly', function () {
+    var rterm = tok('a°>')
+    expect(rterm).to.deep.equal(['sequential', 'a', '>'])
   })
 })
