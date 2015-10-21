@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var expect = require('chai').expect
-var tok = require('../src/tokenizer.js')
+var tok = require('../lib/tokenizer.js')
 
 describe('Basic Network parser', function () {
   it('Returns a list of tokens', function () {
