@@ -3,7 +3,7 @@ line
   = definition / term
 
 term "term"
-  = head:node tail:termTail*
+  = head:node _ op:operators _ tail:term { return  [op, head, tail] } / node
 
 termTail
   = _ op:operators _ n:node { return [op, n] }
@@ -15,7 +15,11 @@ definition "definition"
   = _ w:word _ "=" _ a1:Integer _ "->" _ a2:Integer _ { return ["def", w, [a1,a2]] }
 
 operators =
-  ("++" / "°")
+  ("++" / "°") { switch(text()){
+    case "++": return "parallel"
+    case "°": return "sequential"
+  }
+}
 
 Integer "integer"
   = [0-9]+ { return parseInt(text(), 10); }
