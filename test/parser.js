@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect
 
-var parse = require('../src/parser.js')
+var parse = require('../lib/parser.js')
 
 describe('Basic Network parser', function () {
   it('Returns a list of nodes', function () {

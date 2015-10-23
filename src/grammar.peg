@@ -3,13 +3,15 @@ line
   = definition / term
 
 term "term"
-  = head:node _ op:operators _ tail:term { return  [op, head, tail] } / node
+  = head:node _ op:operators _ tail:term { return  [op, head, tail] }
+  / t:node "^" { return ["loop", t] }
+  / node
 
 termTail
   = _ op:operators _ n:node { return [op, n] }
 
 node
-  = "(" t:term ")" { return t } / word
+  = "(" t:term ")" { return t } / word / ">" / "<"
 
 definition "definition"
   = _ w:word _ "=" _ a1:Integer _ "->" _ a2:Integer _ { return ["def", w, [a1,a2]] }
