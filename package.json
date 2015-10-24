@@ -2,7 +2,7 @@
   "name": "bnparser",
   "version": "0.1.0",
   "description": "A binary network parser",
-  "main": "lib/parser.js",
+  "main": "lib/tokenizer.js",
   "scripts": {
     "prepublish": "node node_modules/gulp/bin/gulp.js",
     "test": "node node_modules/standard/bin/cmd.js src/**/*.js && node_modules/mocha/bin/mocha --compilers js:babel/register"

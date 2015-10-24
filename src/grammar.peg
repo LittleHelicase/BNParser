@@ -1,10 +1,13 @@
 
+lines
+  = line*
+
 line
-  = definition / term
+  = definition
 
 term "term"
   = head:node _ op:operators _ tail:term { return  [op, head, tail] }
-  / t:node "^" { return ["loop", t] }
+  / t:node ("^"/"↑") { return ["loop", t] }
   / node
 
 termTail
@@ -14,12 +17,13 @@ node
   = "(" t:term ")" { return t } / word / ">" / "<"
 
 definition "definition"
-  = _ w:word _ "=" _ a1:Integer _ "->" _ a2:Integer _ { return ["def", w, [a1,a2]] }
+  = _ w:word _ "=" _ t:term _ { return ["def", w, t] }
 
 operators =
-  ("++" / "°") { switch(text()){
+  ("++" / "°" / "◦") { switch(text()){
     case "++": return "parallel"
     case "°": return "sequential"
+    case "◦": return "sequential"
   }
 }
 
@@ -30,6 +34,6 @@ word "word"
   = w:char+ { return w.join('') }
 
 char "character"
-  = [a-z]
+  = [a-zA-Z]
 
 _ "whitespace" = [ \t\n\r]* { return null }
